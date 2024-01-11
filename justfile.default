@@ -1,8 +1,14 @@
+# The `./?dir=dev` part is important. It executes nix command from  the parent folder, pointing to a sub-folder instead of entering the subfolder.
+# If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
+
 check-fmt:
-    nix flake check ./dev
+    nix flake check "./?dir=dev&submodules=1"
+
+# No need to use `./?dir=dev` here, because `fmt` isn't a part of flake command, yet it uses output.<system>.formatter package. 
+# 😕 Very intuitive
 
 fmt:
     cd ./dev; nix fmt ../
 
 generate-pre-commit:
-    nix develop ./dev#pre-commit
+    nix develop "./dev?submodules=1#pre-commit"
