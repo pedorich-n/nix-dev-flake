@@ -33,7 +33,7 @@
       inputs.pre-commit-hooks.flakeModule
     ];
 
-    perSystem = { config, lib, pkgs, ... }: {
+    perSystem = { config, lib, ... }: {
       devShells = {
         pre-commit = config.pre-commit.devShell;
       };
