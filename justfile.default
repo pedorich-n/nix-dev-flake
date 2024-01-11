@@ -11,4 +11,4 @@ fmt:
     cd ./dev; nix fmt ../
 
 generate-pre-commit:
-    nix develop "./dev?submodules=1#pre-commit"
+    nix develop "./?dir=dev&submodules=1#pre-commit"
