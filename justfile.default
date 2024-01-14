@@ -2,13 +2,13 @@
 # If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
 
 check-fmt:
-    nix flake check "./?dir=dev&submodules=1"
+    nix flake check "{{ justfile_directory() + '?dir=dev&submodules=1' }}"
 
 # No need to use `./?dir=dev` here, because `fmt` isn't a part of flake command, yet it uses output.<system>.formatter package. 
 # 😕 Very intuitive
 
 fmt:
-    cd ./dev; nix fmt ../
+    cd {{ join(justfile_directory(), "dev") }} && nix fmt {{ justfile_directory() }}
 
 generate-pre-commit:
-    nix develop "./?dir=dev&submodules=1#pre-commit"
+    nix develop "{{ justfile_directory() + '?dir=dev&submodules=1#pre-commit' }}"
