@@ -53,13 +53,15 @@
 
       pre-commit.settings = {
         rootSrc = lib.mkForce ../.;
-        settings.treefmt.package = config.treefmt.build.wrapper;
 
         hooks = {
           deadnix.enable = true;
           statix.enable = true;
 
-          treefmt.enable = true;
+          treefmt = {
+            enable = true;
+            package = config.treefmt.build.wrapper;
+          };
         };
       };
     };
