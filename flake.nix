@@ -27,7 +27,7 @@
     imports = [
       inputs.treefmt-nix.flakeModule
       inputs.pre-commit-hooks.flakeModule
-      import inputs.extra-config
+      "${inputs.extra-config}/config.nix"
     ];
 
     perSystem = { config, lib, ... }: {

@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "extra-config": {
+      "locked": {
+        "dir": "extra-config",
+        "lastModified": 1724557409,
+        "narHash": "sha256-4Dv2Vxfc2o9H3rkET9vX+VGlWkEE139VCrMDHM6hTSU=",
+        "owner": "pedorich-n",
+        "repo": "nix-dev-flake",
+        "rev": "761c3d6fd35428a611c23fda681fa6710287ee5d",
+        "type": "github"
+      },
+      "original": {
+        "dir": "extra-config",
+        "owner": "pedorich-n",
+        "ref": "extra-config",
+        "repo": "nix-dev-flake",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -124,6 +142,7 @@
     },
     "root": {
       "inputs": {
+        "extra-config": "extra-config",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "pre-commit-hooks": "pre-commit-hooks",
