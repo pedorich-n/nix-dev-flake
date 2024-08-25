@@ -2,7 +2,8 @@
 # If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
 # [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
 
-maybe_extra_dev_config := env_var_or_default('EXTRA_DEV_CONFIG', '')
+set allow-duplicate-variables := true
+maybe_extra_dev_config := ''
 input_override := if maybe_extra_dev_config != '' { "--override-input extra-config path:" + maybe_extra_dev_config } else { "" }
 
 [no-cd]
