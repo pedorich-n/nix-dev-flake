@@ -4,7 +4,10 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    extra-config.url = "github:pedorich-n/nix-dev-flake/extra-config?dir=extra-config";
+    extra-config = {
+      url = "path:./extra-config/config.nix";
+      flake = false;
+    };
 
     # Dev tools
     pre-commit-hooks = {
@@ -29,7 +32,7 @@
     imports = [
       inputs.treefmt-nix.flakeModule
       inputs.pre-commit-hooks.flakeModule
-      "${inputs.extra-config}/config.nix"
+      inputs.extra-config.outPath
     ];
 
     perSystem = { config, lib, ... }: {
@@ -44,6 +47,14 @@
         programs = {
           # Nix
           nixpkgs-fmt.enable = lib.mkDefault true;
+          deadnix.enable = lib.mkDefault true;
+          statix.enable = lib.mkDefault true;
+
+          # Just
+          just.enable = lib.mkDefault true;
+
+          # Shell
+          shfmt.enable = lib.mkDefault true;
 
           # Other
           prettier.enable = lib.mkDefault true;
@@ -53,16 +64,11 @@
       pre-commit.settings = {
         # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
         # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
-        rootSrc = lib.mkOverride 95 ../.; 
+        rootSrc = lib.mkOverride 95 ../.;
 
-        hooks = {
-          deadnix.enable = lib.mkDefault true;
-          statix.enable = lib.mkDefault true;
-
-          treefmt = {
-            enable = lib.mkDefault true;
-            package = lib.mkDefault config.treefmt.build.wrapper;
-          };
+        hooks.treefmt = {
+          enable = lib.mkDefault true;
+          package = lib.mkDefault config.treefmt.build.wrapper;
         };
       };
     };
