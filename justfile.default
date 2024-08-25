@@ -10,6 +10,7 @@ input_override := if extra_dev_config != "" { "--override-input extra-config pat
 # If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
 
 # [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
+
 [no-cd]
 check-fmt:
     nix flake check "{{ justfile_directory() + '?dir=dev&submodules=1' }}" {{ input_override }}
