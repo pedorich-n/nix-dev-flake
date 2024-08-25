@@ -23,6 +23,8 @@
   };
 
   outputs = inputs@{ flake-parts, systems, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
+    debug = true;
+
     systems = import systems;
     imports = [
       inputs.treefmt-nix.flakeModule
@@ -36,28 +38,30 @@
       };
 
       treefmt.config = {
-        projectRootFile = ".root";
-        flakeCheck = false;
+        projectRootFile = lib.mkDefault ".root";
+        flakeCheck = lib.mkDefault false;
 
         programs = {
           # Nix
-          nixpkgs-fmt.enable = true;
+          nixpkgs-fmt.enable = lib.mkDefault true;
 
           # Other
-          prettier.enable = true;
+          prettier.enable = lib.mkDefault true;
         };
       };
 
       pre-commit.settings = {
-        rootSrc = lib.mkForce ../.;
+        # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
+        # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
+        rootSrc = lib.mkOverride 95 ../.; 
 
         hooks = {
-          deadnix.enable = true;
-          statix.enable = true;
+          deadnix.enable = lib.mkDefault true;
+          statix.enable = lib.mkDefault true;
 
           treefmt = {
-            enable = true;
-            package = config.treefmt.build.wrapper;
+            enable = lib.mkDefault true;
+            package = lib.mkDefault config.treefmt.build.wrapper;
           };
         };
       };

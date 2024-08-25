@@ -3,11 +3,11 @@
     "extra-config": {
       "locked": {
         "dir": "extra-config",
-        "lastModified": 1724557409,
-        "narHash": "sha256-4Dv2Vxfc2o9H3rkET9vX+VGlWkEE139VCrMDHM6hTSU=",
+        "lastModified": 1724557524,
+        "narHash": "sha256-weQACBlCTx+GHSQK9zwen9NGVsAla6ipjg19seYUAKQ=",
         "owner": "pedorich-n",
         "repo": "nix-dev-flake",
-        "rev": "761c3d6fd35428a611c23fda681fa6710287ee5d",
+        "rev": "9fa2ec536739ae135611064ecb87e2e29fd1f3eb",
         "type": "github"
       },
       "original": {
