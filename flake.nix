@@ -4,6 +4,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    extra-config.url = "github:pedorich-n/nix-dev-flake/extra-config?dir=extra-config";
+
     # Dev tools
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -25,6 +27,7 @@
     imports = [
       inputs.treefmt-nix.flakeModule
       inputs.pre-commit-hooks.flakeModule
+      import inputs.extra-config
     ];
 
     perSystem = { config, lib, ... }: {
