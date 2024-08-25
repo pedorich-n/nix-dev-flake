@@ -48,7 +48,15 @@
           # Nix
           nixpkgs-fmt.enable = lib.mkDefault true;
           deadnix.enable = lib.mkDefault true;
-          statix.enable = lib.mkDefault true;
+          statix = {
+            enable = lib.mkDefault true;
+            disabled-lints = lib.mkDefault [
+              # Replaces stuff like `map (x: double x) [ 1 2 3 ]` with `map double [ 1 2 3 ]`. I don't particularly like it. IMO explicit is better.
+              "eta_reduction"
+              # Replaces stuff like `mtl = pkgs.haskellPackages.mtl;` with `inherit (pkgs.haskellPackages) mtl;`. I find this sometimes confusing. IMO explicit is better.
+              "manual_inherit_from"
+            ];
+          };
 
           # Just
           just.enable = lib.mkDefault true;
