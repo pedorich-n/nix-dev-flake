@@ -1,11 +1,15 @@
-# The `?dir=dev` part is important. It executes nix command from  the parent folder, pointing to a sub-folder instead of entering the subfolder.
-# If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
-# [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
+# This allows the downstream justfile importing this file to override values and recepies.
 
 set allow-duplicate-variables := true
-maybe_extra_dev_config := ''
-input_override := if maybe_extra_dev_config != '' { "--override-input extra-config path:" + maybe_extra_dev_config } else { "" }
+set allow-duplicate-recipes := true
 
+extra_dev_config := "hehe"
+input_override := if extra_dev_config != "" { "--override-input extra-config path:" + extra_dev_config } else { "" }
+
+# The `?dir=dev` part is important. It executes nix command from  the parent folder, pointing to a sub-folder instead of entering the subfolder.
+# If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
+
+# [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
 [no-cd]
 check-fmt:
     nix flake check "{{ justfile_directory() + '?dir=dev&submodules=1' }}" {{ input_override }}
@@ -15,7 +19,7 @@ check-fmt:
 
 [no-cd]
 fmt:
-    cd {{ join(justfile_directory(), "dev") }} && nix fmt {{ justfile_directory() }} {{ input_override }}
+    cd {{ justfile_directory() / "dev" }} && nix fmt {{ justfile_directory() }} {{ input_override }}
 
 [no-cd]
 generate-pre-commit:
