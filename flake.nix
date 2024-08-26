@@ -41,8 +41,8 @@
       };
 
       treefmt.config = {
-        projectRootFile = lib.mkDefault ".root";
-        projectRoot = lib.mkDefault ../.;
+        projectRootFile = lib.mkDefault ".root"; # This one is used for real formatting because it runs outside of nix environment
+        projectRoot = lib.mkDefault ../.; # And this one is used in flake-check, because it has to be a nix derivation
         flakeCheck = lib.mkDefault true;
 
         programs = {
