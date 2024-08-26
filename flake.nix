@@ -42,7 +42,8 @@
 
       treefmt.config = {
         projectRootFile = lib.mkDefault ".root";
-        flakeCheck = lib.mkDefault false;
+        projectRoot = lib.mkDefault ../.;
+        flakeCheck = lib.mkDefault true;
 
         programs = {
           # Nix
@@ -69,14 +70,18 @@
         };
       };
 
-      pre-commit.settings = {
-        # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
-        # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
-        rootSrc = lib.mkOverride 95 ../.;
+      pre-commit = {
+        # Use treefmt's check script instead, since pre-commit only check staged files, which is confusing sometimes
+        check.enable = lib.mkDefault false;
+        settings = {
+          # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
+          # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
+          rootSrc = lib.mkOverride 95 ../.;
 
-        hooks.treefmt = {
-          enable = lib.mkDefault true;
-          package = lib.mkDefault config.treefmt.build.wrapper;
+          hooks.treefmt = {
+            enable = lib.mkDefault true;
+            package = lib.mkDefault config.treefmt.build.wrapper;
+          };
         };
       };
     };
