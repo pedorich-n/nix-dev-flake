@@ -3,25 +3,21 @@
 set allow-duplicate-variables := true
 set allow-duplicate-recipes := true
 
-extra_dev_config := "hehe"
-input_override := if extra_dev_config != "" { "--override-input extra-config path:" + extra_dev_config } else { "" }
-
 # The `?dir=dev` part is important. It executes nix command from  the parent folder, pointing to a sub-folder instead of entering the subfolder.
 # If you enter a folder of a submodule and execute nix command from there, it will copy the submodule to its own /nix/store folder, without parent.
-
 # [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
 
 [no-cd]
-check-fmt:
-    nix flake check "{{ justfile_directory() + '?dir=dev&submodules=1' }}" {{ input_override }}
+check-fmt *args:
+    nix flake check "{{ justfile_directory() + '?submodules=1' }}" {{ args }}
 
 # No need to use `?dir=dev` here, because `fmt` isn't a part of flake command, yet it uses output.<system>.formatter package.
 # 😕 Very unintuitive
 
 [no-cd]
-fmt:
-    cd {{ justfile_directory() / "dev" }} && nix fmt {{ justfile_directory() }} {{ input_override }}
+fmt *args:
+    nix fmt {{ justfile_directory() }} {{ args }}
 
 [no-cd]
-generate-pre-commit:
-    nix develop "{{ justfile_directory() + '?dir=dev&submodules=1#pre-commit' }}" {{ input_override }}
+generate-pre-commit *args:
+    nix develop "{{ justfile_directory() + '?submodules=1#pre-commit' }}" {{ args }}
