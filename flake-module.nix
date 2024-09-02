@@ -14,7 +14,6 @@
 
     treefmt.config = {
       projectRootFile = lib.mkDefault ".root"; # This one is used for real formatting because it runs outside of nix environment
-      projectRoot = lib.mkDefault ./.; # And this one is used in flake-check, because it has to be a nix derivation
       flakeCheck = lib.mkDefault true;
 
       programs = {
@@ -46,10 +45,6 @@
       # Use treefmt's check script instead, since pre-commit only check staged files, which is confusing sometimes
       check.enable = lib.mkDefault false;
       settings = {
-        # This value is already set in pre-commit module. Default priority is 100. lib.mkForce sets priority to 50.
-        # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
-        rootSrc = lib.mkOverride 95 ./.;
-
         hooks.treefmt = {
           enable = lib.mkDefault true;
           package = lib.mkDefault config.treefmt.build.wrapper;
