@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    systems.url = "github:nix-systems/default";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Dev tools
@@ -20,5 +19,12 @@
     };
   };
 
-  outputs = _: { };
+  outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
+    systems = [ ];
+    flake = {
+      flakeModules = {
+        default = import ./flake-module.nix;
+      };
+    };
+  };
 }
