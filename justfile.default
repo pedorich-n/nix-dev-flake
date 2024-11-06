@@ -3,7 +3,7 @@
 set allow-duplicate-variables := true
 set allow-duplicate-recipes := true
 
-extra_dev_config := "hehe"
+extra_dev_config := ""
 input_override := if extra_dev_config != "" { "--override-input extra-config path:" + extra_dev_config } else { "" }
 
 # The `?dir=dev` part is important. It executes nix command from  the parent folder, pointing to a sub-folder instead of entering the subfolder.
