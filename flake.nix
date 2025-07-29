@@ -25,8 +25,14 @@
 
     systems = import systems;
 
-    flakeModules = {
-      default = import ./flake-module.nix;
+    imports = [
+      inputs.flake-parts.flakeModules.flakeModules
+    ];
+
+    flake = {
+      flakeModules = {
+        default = import ./flake-module.nix;
+      };
     };
   };
 }
