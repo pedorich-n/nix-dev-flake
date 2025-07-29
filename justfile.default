@@ -3,12 +3,11 @@
 set allow-duplicate-variables := true
 set allow-duplicate-recipes := true
 
-
 # [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
 
 [no-cd]
 _build target *args:
-    nix build "{{ justfile_directory() + '#' + target }}" {{ if args != "" { '-- ' + args } else { '' } }} 
+    nix build "{{ justfile_directory() + '#' + target }}" {{ if args != "" { '-- ' + args } else { '' } }}
 
 [no-cd]
 _develop target:
@@ -16,7 +15,7 @@ _develop target:
 
 [no-cd]
 _run target *args:
-    nix run "{{ justfile_directory() + '#' + target }}" {{ args }}
+    nix run "{{ justfile_directory() + '#' + target }}" {{ if args != "" { '-- ' + args } else { '' } }}
 
 [no-cd]
 check:
