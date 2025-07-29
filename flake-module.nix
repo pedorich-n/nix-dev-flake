@@ -45,7 +45,7 @@
       settings = {
         # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
         # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
-        rootSrc = lib.mkOverride 95 ../.;
+        rootSrc = lib.mkOverride 95 ./.;
 
         hooks.treefmt = {
           enable = lib.mkDefault true;
