@@ -7,7 +7,19 @@ set allow-duplicate-recipes := true
 # [no-cd] is required because when this justfile is used with `import dev/justfile.default` the invocation folder will be `dev` otherwise
 
 [no-cd]
-check-fmt:
+_build target *args:
+    nix build "{{ justfile_directory() + '#' + target }}" {{ if args != "" { '-- ' + args } else { '' } }} 
+
+[no-cd]
+_develop target:
+    nix develop "{{ justfile_directory() + '#' + target }}" 
+
+[no-cd]
+_run target *args:
+    nix run "{{ justfile_directory() + '#' + target }}" {{ args }}
+
+[no-cd]
+check:
     nix flake check "{{ justfile_directory() }}"
 
 [no-cd]
