@@ -1,18 +1,5 @@
 {
   "nodes": {
-    "extra-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-skoF5nJ9OiOg+GjcSLppg3IJOKpqIaNCUJBXXkPv9as=",
-        "path": "./extra-config/config.nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "./extra-config/config.nix",
-        "type": "path"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -123,7 +110,6 @@
     },
     "root": {
       "inputs": {
-        "extra-config": "extra-config",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
         "pre-commit-hooks": "pre-commit-hooks",
