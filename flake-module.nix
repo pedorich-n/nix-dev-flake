@@ -15,7 +15,7 @@
       flakeCheck = lib.mkDefault true;
 
       settings = {
-        global.exclude = [
+        global.excludes = [
           "**/_sources/*"
           "**/renovate.json"
         ];
