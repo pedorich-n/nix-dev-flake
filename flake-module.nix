@@ -14,6 +14,13 @@
       projectRoot = lib.mkDefault ./.; # And this one is used in flake-check, because it has to be a nix derivation
       flakeCheck = lib.mkDefault true;
 
+      settings = {
+        global.exclude = [
+          "**/_sources/*"
+          "**/renovate.json"
+        ];
+      };
+
       programs = {
         # Nix
         nixpkgs-fmt.enable = lib.mkDefault true;
