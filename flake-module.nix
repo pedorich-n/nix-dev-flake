@@ -17,6 +17,7 @@
       settings = {
         global.excludes = [
           "**/_sources/*"
+          "renovate.json"
           "**/renovate.json"
         ];
       };
