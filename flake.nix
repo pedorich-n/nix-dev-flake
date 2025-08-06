@@ -27,6 +27,7 @@
 
     imports = [
       inputs.flake-parts.flakeModules.flakeModules
+      ./flake-module.nix
     ];
 
     flake = {
