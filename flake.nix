@@ -20,20 +20,22 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, systems, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
-    debug = true;
+  outputs =
+    inputs@{ flake-parts, systems, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
 
-    systems = import systems;
+      systems = import systems;
 
-    imports = [
-      inputs.flake-parts.flakeModules.flakeModules
-      ./flake-module.nix
-    ];
+      imports = [
+        inputs.flake-parts.flakeModules.flakeModules
+        ./flake-module.nix
+      ];
 
-    flake = {
-      flakeModules = {
-        default = import ./flake-module.nix;
+      flake = {
+        flakeModules = {
+          default = import ./flake-module.nix;
+        };
       };
     };
-  };
 }
