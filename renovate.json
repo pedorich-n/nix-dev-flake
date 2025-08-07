@@ -2,5 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>pedorich-n/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "nix"
+      ],
+      "automerge": true,
+      "automergeType": "branch"
+    }
   ]
 }
