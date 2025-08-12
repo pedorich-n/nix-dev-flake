@@ -27,7 +27,10 @@
 
         programs = {
           # Nix
-          nixfmt.enable = lib.mkDefault true;
+          nixfmt = {
+            enable = lib.mkDefault true;
+            width = lib.mkDefault 140;
+          };
           deadnix.enable = lib.mkDefault true;
           statix = {
             enable = lib.mkDefault true;
