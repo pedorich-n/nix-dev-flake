@@ -6,7 +6,12 @@
   ];
 
   perSystem =
-    { config, lib, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     {
       devShells = {
         pre-commit = config.pre-commit.devShell;
@@ -49,7 +54,10 @@
           shfmt.enable = lib.mkDefault true;
 
           # Other
-          prettier.enable = lib.mkDefault true;
+          prettier = {
+            enable = lib.mkDefault true;
+            package = lib.mkDefault pkgs.prettier;
+          };
         };
       };
 
