@@ -1,15 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>pedorich-n/renovate-config"
-  ],
-  "packageRules": [
-    {
-      "groupName": "All Nix Updates",
-      "description": "Group all Nix updates together",
-      "groupSlug": "all-nix-updates",
-      "schedule": "* * 25 * *",
-      "matchManagers": ["nix"]
-    }
-  ]
+  "extends": ["local>pedorich-n/renovate-config"],
+  "nix": {
+    "enabled": false
+  }
 }
