@@ -5,11 +5,11 @@
   ],
   "packageRules": [
     {
-      "matchManagers": [
-        "nix"
-      ],
-      "automerge": true,
-      "automergeType": "branch"
+      "groupName": "All Nix Updates",
+      "description": "Group all Nix updates together",
+      "groupSlug": "all-nix-updates",
+      "schedule": "* * 25 * *",
+      "matchManagers": ["nix"]
     }
   ]
 }
