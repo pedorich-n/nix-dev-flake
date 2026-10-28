@@ -50,6 +50,8 @@
           # Just
           just.enable = lib.mkDefault true;
 
+          keep-sorted.enable = lib.mkDefault true;
+
           # Shell
           shfmt.enable = lib.mkDefault true;
 
