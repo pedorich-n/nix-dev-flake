@@ -1,4 +1,4 @@
-# This allows the downstream justfile importing this file to override values and recepies.
+# This allows the downstream justfile importing this file to override values and recipes.
 
 set allow-duplicate-variables := true
 set allow-duplicate-recipes := true
@@ -10,8 +10,8 @@ _build target *args:
     nix build "{{ justfile_directory() + '#' + target }}" {{ if args != "" { '-- ' + args } else { '' } }}
 
 [no-cd]
-_develop target:
-    nix develop "{{ justfile_directory() + '#' + target }}" 
+_develop target *args:
+    nix develop "{{ justfile_directory() + '#' + target }}" {{ args }}
 
 [no-cd]
 _run target *args:

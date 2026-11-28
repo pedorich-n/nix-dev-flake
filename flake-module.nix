@@ -2,12 +2,11 @@
 {
   imports = [
     inputs.treefmt-nix.flakeModule
-    inputs.pre-commit-hooks.flakeModule
+    inputs.git-hooks.flakeModule
   ];
 
   perSystem =
     {
-      pkgs,
       config,
       lib,
       ...
@@ -19,7 +18,6 @@
 
       treefmt.config = {
         projectRootFile = lib.mkOverride 950 ".root"; # This one is used for real formatting because it runs outside of nix environment
-        projectRoot = lib.mkDefault ./.; # And this one is used in flake-check, because it has to be a nix derivation
         flakeCheck = lib.mkDefault true;
 
         settings = {
@@ -27,6 +25,8 @@
             "**/_sources/*"
             "renovate.json"
             "**/renovate.json"
+            ".terraform.lock.hcl"
+            "**/.terraform.lock.hcl"
           ];
         };
 
@@ -54,12 +54,20 @@
 
           # Shell
           shfmt.enable = lib.mkDefault true;
+          shellcheck.enable = lib.mkDefault true;
+
+          # CI
+          actionlint.enable = lib.mkDefault true;
+          zizmor.enable = lib.mkDefault true;
+
+          # Infrastructure
+          # Despite the option name, it uses `tofu fmt`
+          terraform.enable = lib.mkDefault true;
 
           # Other
-          prettier = {
-            enable = lib.mkDefault true;
-            package = lib.mkDefault pkgs.prettier;
-          };
+          typos.enable = lib.mkDefault true;
+
+          prettier.enable = lib.mkDefault true;
         };
       };
 
@@ -67,10 +75,6 @@
         # Use treefmt's check script instead, since pre-commit only check staged files, which is confusing sometimes
         check.enable = lib.mkDefault false;
         settings = {
-          # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
-          # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
-          rootSrc = lib.mkOverride 95 ./.;
-
           hooks.treefmt = {
             enable = lib.mkDefault true;
             package = lib.mkDefault config.treefmt.build.wrapper;
