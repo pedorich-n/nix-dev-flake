@@ -7,7 +7,6 @@
 
   perSystem =
     {
-      pkgs,
       config,
       lib,
       ...
@@ -56,10 +55,9 @@
           shfmt.enable = lib.mkDefault true;
 
           # Other
-          prettier = {
-            enable = lib.mkDefault true;
-            package = lib.mkDefault pkgs.prettier;
-          };
+          typos.enable = lib.mkDefault true;
+
+          prettier.enable = lib.mkDefault true;
         };
       };
 
@@ -67,7 +65,7 @@
         # Use treefmt's check script instead, since pre-commit only check staged files, which is confusing sometimes
         check.enable = lib.mkDefault false;
         settings = {
-          # This value is already set in pre-commit module. Default prioriy is 100. lib.mkForce sets priority to 50.
+          # This value is already set in pre-commit module. Default priority is 100. lib.mkForce sets priority to 50.
           # So I need to use a value that's lover than default, but higher than 50, so that downstram lib.mkForce could be used if needed
           rootSrc = lib.mkOverride 95 ./.;
 
