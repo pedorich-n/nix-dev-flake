@@ -10,8 +10,8 @@ _build target *args:
     nix build "{{ justfile_directory() + '#' + target }}" {{ if args != "" { '-- ' + args } else { '' } }}
 
 [no-cd]
-_develop target:
-    nix develop "{{ justfile_directory() + '#' + target }}"
+_develop target *args:
+    nix develop "{{ justfile_directory() + '#' + target }}" {{ args }}
 
 [no-cd]
 _run target *args:
