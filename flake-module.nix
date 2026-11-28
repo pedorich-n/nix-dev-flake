@@ -26,6 +26,8 @@
             "**/_sources/*"
             "renovate.json"
             "**/renovate.json"
+            ".terraform.lock.hcl"
+            "**/.terraform.lock.hcl"
           ];
         };
 
@@ -57,6 +59,10 @@
 
           # CI
           actionlint.enable = lib.mkDefault true;
+
+          # Infrastructure
+          # Despite the option name, it uses `tofu fmt`
+          terraform.enable = lib.mkDefault true;
 
           # Other
           typos.enable = lib.mkDefault true;
