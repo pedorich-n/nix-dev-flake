@@ -6,8 +6,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Dev tools
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
