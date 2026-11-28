@@ -59,6 +59,7 @@
 
           # CI
           actionlint.enable = lib.mkDefault true;
+          zizmor.enable = lib.mkDefault true;
 
           # Infrastructure
           # Despite the option name, it uses `tofu fmt`
