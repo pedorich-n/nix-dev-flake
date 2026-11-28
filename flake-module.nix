@@ -53,6 +53,10 @@
 
           # Shell
           shfmt.enable = lib.mkDefault true;
+          shellcheck.enable = lib.mkDefault true;
+
+          # CI
+          actionlint.enable = lib.mkDefault true;
 
           # Other
           typos.enable = lib.mkDefault true;
